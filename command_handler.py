@@ -37,7 +37,10 @@ def process_command(user_text):
             return False
    
     # Greetings
-    if greet(user_text):
+    response = greet(user_text)
+
+    if response:
+        speak(response)
         return True
 
     # Chat mode toggle
@@ -60,24 +63,35 @@ def process_command(user_text):
         return start_super_powers()
     
     # Searches
-    if youtube_search(user_text):
+    response = youtube_search(user_text)
+    if response:
+        speak(response)
         return True
+     
+    
 
-    if google_search(user_text):
+    response = google_search(user_text) 
+    if response:
+        speak(response)
         return True
 
     # Time
-    if handle_time_date(user_text):
+    response = handle_time_date(user_text)
+
+    if response:
+        speak(response)
         return True
     # Apps
-    if open_app(user_text):
+    response = open_app(user_text)
+    if response:
+        speak(response)
         return True
 
     # Websites
     if open_site(user_text):
         return True
 
-    # Default → Gemini
+    # Default → Ollama
     try:
         response = ask_llm(user_text)
         speak(response)

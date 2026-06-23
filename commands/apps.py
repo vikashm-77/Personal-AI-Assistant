@@ -1,5 +1,4 @@
 import subprocess
-from voice.tts import speak
 
 apps = {
     "chrome": "Google Chrome",
@@ -11,7 +10,7 @@ apps = {
 def open_app(user_text):
 
     if not user_text.startswith("open"):
-        return False
+        return None
 
     for key, app_name in apps.items():
 
@@ -20,12 +19,9 @@ def open_app(user_text):
             try:
                 subprocess.run(["open", "-a", app_name])
 
-                speak(f"Opening {key}")
-
-                return True
+                return f"Opening {key}"
 
             except Exception:
-                speak("Unable to open application")
-                return True
+                return "Unable to open application"
 
-    return False
+    return None

@@ -1,7 +1,6 @@
 import webbrowser
 from urllib.parse import quote_plus
 
-from voice.tts import speak
 
 
 
@@ -22,18 +21,15 @@ def google_search(user_text):
             query = user_text[len(prefix):].strip()
 
             if not query:
-                speak("What should I search?")
-                return True
-
-            speak(f"Searching Google for {query}")
+                return "What should I search?"
 
             webbrowser.open(
                 f"https://www.google.com/search?q={quote_plus(query)}"
             )
 
-            return True
+            return f"Searching Google for {query}"
 
-    return False
+    return None
 
 def youtube_search(user_text):
 
@@ -50,15 +46,12 @@ def youtube_search(user_text):
             query = user_text[len(prefix):].strip()
 
             if not query:
-                speak("What should I search on YouTube?")
-                return True
-
-            speak(f"Searching YouTube for {query}")
+                return "What should I search on YouTube?"
 
             webbrowser.open(
                 f"https://www.youtube.com/results?search_query={quote_plus(query)}"
             )
 
-            return True
+            return f"Searching YouTube for {query}"
 
-    return False
+    return None
