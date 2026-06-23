@@ -88,7 +88,9 @@ def process_command(user_text):
         return True
 
     # Websites
-    if open_site(user_text):
+    response = open_site(user_text)
+    if response:
+        speak(response)
         return True
 
     # Default → Ollama
