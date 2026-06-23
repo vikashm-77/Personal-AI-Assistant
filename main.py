@@ -1,10 +1,9 @@
 from voice.speech import recognize
-from command_handler import process_command
-
+from core.assistant_core import handle_input
 
 while True:
 
     user_text = recognize()
 
-    if not process_command(user_text):
+    if not handle_input(user_text):
         break
