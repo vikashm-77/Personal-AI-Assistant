@@ -1,0 +1,16 @@
+SpeechRecognition
+PyAudio
+pyttsx3
+
+openai-whisper
+torch
+
+ollama
+
+mediapipe
+opencv-python
+
+PyAutoGUI
+
+python-dotenv
+
