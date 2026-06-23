@@ -47,7 +47,9 @@ def process_command(user_text):
         return True
 
     # Chat mode toggle
-    if handle_chat_mode(user_text):
+    response = handle_chat_mode(user_text)
+    if response:
+        speak(response)
         return True
 
     # Chat mode active

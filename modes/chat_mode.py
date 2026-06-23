@@ -8,15 +8,13 @@ def handle_chat_mode(user_text):
 
     if "enter chat mode" in user_text:
         CHAT_MODE = True
-        speak("Chat mode activated")
-        return True
+        return "Chat mode activated"
 
     if "exit chat mode" in user_text:
         CHAT_MODE = False
-        speak("Chat mode deactivated")
-        return True
+        return "Chat mode deactivated"
 
-    return False
+    return None
 
 
 def is_chat_mode():

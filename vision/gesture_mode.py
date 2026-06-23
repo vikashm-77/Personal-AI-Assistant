@@ -42,7 +42,8 @@ def gesture_mode():
         success, img = cap.read()
 
         if not success:
-            continue
+            print("camera error")
+            break
 
         rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
         results = hands.process(rgb)
@@ -217,3 +218,6 @@ def gesture_mode():
             cv2.destroyAllWindows()
 
             return "EXIT"
+    cap.release()
+    cv2.destroyAllWindows()
+    return "EXIT"
