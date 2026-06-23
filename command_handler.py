@@ -27,7 +27,10 @@ def process_command(user_text):
         return True
 
     user_text = user_text.lower().strip()
-    if handle_memory(user_text):
+
+    response = handle_memory(user_text)
+    if response:
+        speak(response)
         return True
 
     # Exit

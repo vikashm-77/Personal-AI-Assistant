@@ -1,5 +1,5 @@
 from memory.memory_manager import load_memory, save_memory
-from voice.tts import speak
+
 
 
 def handle_memory(user_text):
@@ -24,10 +24,7 @@ def handle_memory(user_text):
         memory[key] = value
 
         save_memory(memory)
-
-        speak(f"I will remember your {key.replace('_', ' ')}")
-
-        return True
+        return f"I will remember your {key.replace('_', ' ')}"
 
     # what is my X
     if user_text.startswith("what is my "):
@@ -44,33 +41,23 @@ def handle_memory(user_text):
         memory = load_memory()
 
         if key in memory:
-
-            speak(
-                f"Your {key.replace('_', ' ')} is {memory[key]}"
-            )
+            return f"Your {key.replace('_', ' ')} is {memory[key]}"
 
         else:
-            speak(
-                f"I don't know your {key.replace('_', ' ')} yet"
-            )
-
-        return True
+            return  f"I don't know your {key.replace('_', ' ')} yet"
+        
     if "what do you know about me" in user_text:
 
         memory = load_memory()
 
         if not memory:
-            speak("I don't know anything about you yet.")
-            return True
+            return "I don't know anything about you yet."
 
         response = "I know "
 
         for key, value in memory.items():
             response += f"your {key.replace('_', ' ')} is {value}. "
-
-        speak(response)
-
-        return True
+        return response
     
     if user_text.startswith("forget my "):
 
@@ -90,13 +77,12 @@ def handle_memory(user_text):
             del memory[key]
 
             save_memory(memory)
-
-            speak(f"I forgot your {key.replace('_', ' ')}")
+            return f"I forgot your {key.replace('_', ' ')}"
 
         else:
 
-            speak("I don't know that information")
+            return "I don't know that information"
 
-        return True
+        
 
-    return False
+    return None
