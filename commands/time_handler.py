@@ -1,4 +1,3 @@
-from voice.tts import speak
 from commands.datetime_cmd import tell_time, tell_date
 
 def handle_time_date(user_text):
@@ -9,8 +8,7 @@ def handle_time_date(user_text):
         "time now",
         "time"
     ]):
-        speak(tell_time())
-        return True
+        return tell_time()
 
     if any(x in user_text for x in [
         "today date",
@@ -18,7 +16,6 @@ def handle_time_date(user_text):
         "what is today's date",
         "date"
     ]):
-        speak(tell_date())
-        return True
+        return tell_date()
 
-    return False
+    return None

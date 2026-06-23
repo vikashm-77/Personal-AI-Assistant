@@ -1,5 +1,3 @@
-from voice.tts import speak
-
 GREETINGS = {
     "hello",
     "hi",
@@ -15,7 +13,6 @@ def greet(user_text):
 
         if user_text.startswith(greeting):
 
-            speak("Hello! How can I help you?")
-            return True
+            return "Hello! How can I help you?"
 
-    return False
+    return None
