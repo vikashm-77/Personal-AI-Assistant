@@ -1,0 +1,25 @@
+# Virtual Environment
+assistant_env/
+.venv/
+
+# Python
+__pycache__/
+*.pyc
+
+# Mac
+.DS_Store
+
+# Environment
+.env
+
+# Temporary files
+temp.wav
+
+# User memory
+memory/user_memory.json
+
+# VS Code
+.vscode/
+
+# Logs
+*.log
