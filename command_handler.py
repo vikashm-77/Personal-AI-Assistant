@@ -24,45 +24,44 @@ EXIT_COMMANDS = {
 def process_command(user_text):
 
     if not user_text:
-        return True
+        return ""
 
     user_text = user_text.lower().strip()
 
     response = handle_memory(user_text)
     if response:
         speak(response)
-        return True
+        return response
 
     # Exit
     for cmd in EXIT_COMMANDS:
         if cmd in user_text:
             speak("Goodbye")
-            return False
+            return "GoodBye"
    
     # Greetings
     response = greet(user_text)
-
     if response:
         speak(response)
-        return True
+        return response
 
     # Chat mode toggle
     response = handle_chat_mode(user_text)
     if response:
         speak(response)
-        return True
+        return response
 
     # Chat mode active
     if is_chat_mode():
         try:
             response = ask_llm(user_text)
             speak(response)
+            return response
         except Exception as e:
             print(e)
             speak("Sorry, I couldn't contact Ollama.")
+            return "Sorry, I couldn't contact Ollama."
 
-        return True
-    # Super Powers Mode
     # Super Powers Mode
     if is_super_power_command(user_text):
         return start_super_powers()
@@ -71,40 +70,38 @@ def process_command(user_text):
     response = youtube_search(user_text)
     if response:
         speak(response)
-        return True
-     
-    
+        return response
 
-    response = google_search(user_text) 
+    response = google_search(user_text)
     if response:
         speak(response)
-        return True
+        return response
 
     # Time
     response = handle_time_date(user_text)
-
     if response:
         speak(response)
-        return True
+        return response
+
     # Apps
     response = open_app(user_text)
     if response:
         speak(response)
-        return True
+        return response
 
     # Websites
     response = open_site(user_text)
     if response:
         speak(response)
-        return True
+        return response
 
     # Default → Ollama
     try:
         response = ask_llm(user_text)
         speak(response)
+        return response
 
     except Exception as e:
         print(e)
         speak("Sorry, I couldn't contact Ollama.")
-
-    return True
+        return "Sorry, I couldn't contact Ollama."
