@@ -5,6 +5,8 @@ from PyQt6.QtWidgets import (
     QVBoxLayout
 )
 
+from voice.tts import speak
+from gui.voice_worker import VoiceWorker
 
 from gui.sidebar import Sidebar
 from gui.chat_widget import ChatWidget
@@ -18,6 +20,8 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
+
+        self.voice_worker = None
         
 
         self.setStyleSheet(WINDOW_STYLE)
@@ -43,6 +47,7 @@ class MainWindow(QMainWindow):
 
         self.input.send_btn.clicked.connect(self.send_message)
         self.input.input_box.returnPressed.connect(self.send_message)
+        self.input.voice_btn.clicked.connect(self.start_voice_input)
 
         right_layout.addWidget(self.chat)
         right_layout.addWidget(self.input)
@@ -67,3 +72,19 @@ class MainWindow(QMainWindow):
         self.chat.add_message(response, sender="assistant")
 
         self.input.input_box.clear()
+
+        speak(response)
+
+    def start_voice_input(self):
+        self.voice_worker = VoiceWorker()
+        self.voice_worker.finished.connect(self.handle_voice_result)
+        self.voice_worker.start()
+
+    def handle_voice_result(self, text):
+        self.chat.add_message(text, sender="user")
+
+        response = handle_input(text)
+
+        self.chat.add_message(response, sender="assistant")
+
+        speak(response)

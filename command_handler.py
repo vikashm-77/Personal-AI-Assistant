@@ -1,4 +1,3 @@
-from voice.tts import speak
 from llm import ask_llm
 from memory.memory_commands import handle_memory
 
@@ -30,78 +29,66 @@ def process_command(user_text):
 
     response = handle_memory(user_text)
     if response:
-        speak(response)
         return response
 
     # Exit
     for cmd in EXIT_COMMANDS:
         if cmd in user_text:
-            speak("Goodbye")
-            return "GoodBye"
-   
+            return "Goodbye"
+
     # Greetings
     response = greet(user_text)
     if response:
-        speak(response)
         return response
 
     # Chat mode toggle
     response = handle_chat_mode(user_text)
     if response:
-        speak(response)
         return response
 
     # Chat mode active
     if is_chat_mode():
         try:
             response = ask_llm(user_text)
-            speak(response)
             return response
         except Exception as e:
             print(e)
-            speak("Sorry, I couldn't contact Ollama.")
             return "Sorry, I couldn't contact Ollama."
 
     # Super Powers Mode
     if is_super_power_command(user_text):
-        return start_super_powers()
-    
+        start_super_powers()
+        return "Super powers activated"
+
     # Searches
     response = youtube_search(user_text)
     if response:
-        speak(response)
         return response
 
     response = google_search(user_text)
     if response:
-        speak(response)
         return response
 
     # Time
     response = handle_time_date(user_text)
     if response:
-        speak(response)
         return response
 
     # Apps
     response = open_app(user_text)
     if response:
-        speak(response)
         return response
 
     # Websites
     response = open_site(user_text)
     if response:
-        speak(response)
         return response
 
     # Default → Ollama
     try:
         response = ask_llm(user_text)
-        speak(response)
         return response
 
     except Exception as e:
         print(e)
-        speak("Sorry, I couldn't contact Ollama.")
         return "Sorry, I couldn't contact Ollama."
