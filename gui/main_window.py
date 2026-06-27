@@ -7,6 +7,7 @@ from PyQt6.QtWidgets import (
 
 from voice.tts import speak
 from gui.voice_worker import VoiceWorker
+from vision.gesture_mode import gesture_mode
 
 from gui.sidebar import Sidebar
 from gui.chat_widget import ChatWidget
@@ -48,6 +49,7 @@ class MainWindow(QMainWindow):
         self.input.send_btn.clicked.connect(self.send_message)
         self.input.input_box.returnPressed.connect(self.send_message)
         self.input.voice_btn.clicked.connect(self.start_voice_input)
+        self.sidebar.gesture_btn.clicked.connect(self.start_gesture_mode)
 
         right_layout.addWidget(self.chat)
         right_layout.addWidget(self.input)
@@ -64,16 +66,9 @@ class MainWindow(QMainWindow):
 
         if not text:
             return
-        
-        self.chat.add_message(text, sender="user")
-
-        response = handle_input(text)
-
-        self.chat.add_message(response, sender="assistant")
 
         self.input.input_box.clear()
-
-        speak(response)
+        self.process_user_message(text)
 
     def start_voice_input(self):
         self.voice_worker = VoiceWorker()
@@ -81,10 +76,30 @@ class MainWindow(QMainWindow):
         self.voice_worker.start()
 
     def handle_voice_result(self, text):
+        self.process_user_message(text)
+        
+    def process_user_message(self, text):
         self.chat.add_message(text, sender="user")
 
         response = handle_input(text)
 
-        self.chat.add_message(response, sender="assistant")
+        if not response:
+            response = "I couldn't process that."
 
+        self.chat.add_message(response, sender="assistant")
         speak(response)
+
+        clean_text = text.lower().strip().replace(".", "").replace("!", "").replace(",", "")
+
+        if clean_text in {"exit", "quit", "close assistant", "shutdown assistant"}:
+            self.close()
+    def start_gesture_mode(self):
+        self.chat.add_message("Gesture mode started.", sender="assistant")
+        speak("Gesture mode started")
+
+        result = gesture_mode()
+
+        self.chat.add_message("Gesture mode ended.", sender="assistant")
+        speak("Gesture mode ended")
+
+    
