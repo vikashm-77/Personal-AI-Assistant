@@ -97,32 +97,6 @@ Current Capabilities
 
 ⸻
 
-Roadmap
-
-Version 1.1
-
-* Memory improvements
-* Better conversation management
-
-Version 2.0
-
-* Desktop GUI
-* Modern user interface
-
-Version 3.0
-
-* Web application support
-* Cross-platform access (Desktop + Mobile)
-
-Future Goals
-
-* RAG (Knowledge Retrieval)
-* Agent workflows
-* Multi-tool reasoning
-* Advanced automation
-
-⸻
-
 Installation
 
 git clone https://github.com/vikashm-77/Personal-AI-Assistant.git
