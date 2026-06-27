@@ -118,3 +118,4 @@ ollama run llama3.2
 Start the assistant:
 
 python main.py
+# Test
